@@ -5,7 +5,7 @@ Virtual machines that I use on my laptop
 ## Vagrant
 
 VMs are provisioned by Vagrant and VirtualBox.
-The Vagrant configuration is stored in directory [`directory`](directory).
+The Vagrant configuration is stored in directory [`vagrant`](vagrant).
 
 To boot all VMs just do:
 ```
