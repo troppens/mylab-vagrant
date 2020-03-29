@@ -22,3 +22,11 @@ The [`Vagrantfile`](vagrant/Vagrantfile) just launches one VM running CentOS8.
 | Variable | Description |
 |----------|-------------|
 | mynodes  | Dictionary of VMs to be managed by Vagrant. |
+
+##### VM properties
+
+VMs can be customized be settings the following properties in `mynodes`:
+
+| Property | Description |
+|----------|-------------|
+| ip       | Static IP address an internal cluster network |
