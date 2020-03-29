@@ -16,3 +16,9 @@ vagrant up
 ### Vagrantfile
 
 The [`Vagrantfile`](vagrant/Vagrantfile) just launches one VM running CentOS8.
+
+#### Variables
+
+| Variable | Description |
+|----------|-------------|
+| mynodes  | List of VMs to be managed by Vagrant |

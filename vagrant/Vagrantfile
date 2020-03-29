@@ -1,7 +1,21 @@
+# List of VMs to be managed by Vagrant
+mynodes = [ "node1", "node2" ]
+
+###############################################################################
+#
+# Do not make any changes below this line
+#
+###############################################################################
+
 #
 # Configure all VMs
 #
 Vagrant.configure("2") do |config|
   config.vm.box = "centos/8"
   config.vm.box_version = "1905.1"
+
+  mynodes.each do |node|
+    config.vm.define node
+  end  # Loop |node|
+
 end  # Vagrant.configure
