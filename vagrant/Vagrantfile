@@ -23,7 +23,10 @@ Vagrant.configure("2") do |config|
   # Iterate over all nodes in mynodes
   mynodes.each do |node|
     # Define VM
-    config.vm.define node
+    config.vm.define node do |current_node|
+      # Set hostname in guest OS
+      current_node.vm.hostname = node
+    end  # Loop |current_node|
   end  # Loop |node|
 
 end  # Loop |config|
