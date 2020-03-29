@@ -30,3 +30,11 @@ VMs can be customized be settings the following properties in `mynodes`:
 | Property | Description |
 |----------|-------------|
 | ip       | Static IP address an internal cluster network |
+
+
+## Directories
+
+| Directory | Description |
+|-----------|-------------|
+| [`vagrant`](vagrant) | Files to manage VMs using Vagrant |
+| [`config`](config)   | Configuration files used by all VMs |
