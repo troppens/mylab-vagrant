@@ -2,6 +2,12 @@
 Virtual machines that I use on my laptop
 
 
+## Capabilities
+
+* Synchronize local folder [`config`](config) to all guests
+* Enable root ssh between all guests by configuring same ssh key for root
+
+
 ## Vagrant
 
 VMs are provisioned by Vagrant and VirtualBox.
