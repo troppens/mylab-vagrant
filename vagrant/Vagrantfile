@@ -62,8 +62,8 @@ Vagrant.configure("2") do |config|
       # Virtualbox settings for current VM
       current_node.vm.provider :virtualbox do |vb|
         # Set VM name in VirtualBox
-       vb.name = node
-     end  # Loop |vb|
+        vb.name = node
+      end  # Loop |vb|
 
     end  # Loop |current_node|
   end  # Loop |node|
