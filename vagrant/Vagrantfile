@@ -16,6 +16,22 @@ mynodes = {
 mynodenames = mynodes.keys
 
 #
+# Generate RSA key for root ssh between VMs
+#
+require "openssl"
+myfile_id_rsa_root = "../config/id_rsa_root"
+
+# Generate RSA key for root, if not exists
+if not(File.exists?(myfile_id_rsa_root))
+  puts "====> RSA key for root not found (#{myfile_id_rsa_root}). Generating new key."
+
+  # Generate new file with RSA key
+  rsa_key_for_root = OpenSSL::PKey::RSA.new(2048)
+  File.write(myfile_id_rsa_root, rsa_key_for_root)
+
+end  # if
+
+#
 # Configure all VMs
 #
 Vagrant.configure("2") do |config|
