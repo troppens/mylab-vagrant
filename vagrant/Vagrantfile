@@ -1,9 +1,3 @@
-# List of VMs to be managed by Vagrant
-mynodes = {
-  "node1" => { "ip" => "10.1.1.11" },
-  "node2" => { "ip" => "10.1.1.12" }
-}
-
 ###############################################################################
 #
 # Do not make any changes below this line
@@ -11,8 +5,19 @@ mynodes = {
 ###############################################################################
 
 #
-# Extract all node names
+# Read nodes configuration
 #
+# Exit, if node configuration file not exists
+if not(File.exists?("../config/nodes.yml"))
+  puts "====> Please create cluster configuration file '../shared/nodes.yml'"
+  exit(1)
+end # if
+
+# Read node configuration file
+file = File.read("../config/nodes.yml")
+mynodes = YAML.load(file)
+
+# Extract all node names
 mynodenames = mynodes.keys
 
 #
