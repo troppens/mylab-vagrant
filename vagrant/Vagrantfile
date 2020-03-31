@@ -7,10 +7,11 @@
 #
 # Read nodes configuration
 #
+
 # Copy node configuration file from example configuration file, if not exists
 if not(File.exists?("../config/nodes.yml"))
   puts "====> Node configuration file not found ('../config/nodes.yml')."
-  puts "====> Copy it from example file ('../config/nodes.yml.smp')."
+  puts "====> Copy it from example file ('../config/nodes.yml.smp')..."
   FileUtils.cp "../config/nodes.yml.smp", "../config/nodes.yml"
 end # if
 
@@ -29,7 +30,8 @@ myfile_id_rsa_root = "../config/id_rsa_root"
 
 # Generate RSA key for root, if not exists
 if not(File.exists?(myfile_id_rsa_root))
-  puts "====> RSA key for root not found (#{myfile_id_rsa_root}). Generating new key."
+  puts "====> RSA key for root not found ('#{myfile_id_rsa_root}')."
+  puts "====> Generating RSA key for root..."
 
   # Generate new file with RSA key
   rsa_key_for_root = OpenSSL::PKey::RSA.new(2048)
@@ -40,6 +42,7 @@ end  # if
 #
 # Configure all VMs
 #
+
 Vagrant.configure("2") do |config|
 
   # Pin CentOS 8 version 1905.1 as OS
