@@ -1,0 +1,19 @@
+###############################################################################
+#
+# Example file for node configuration
+#
+###############################################################################
+
+#
+# Copy to nodes.yml and customize for your needs
+#
+
+# Virtual machine 'node1'
+node1:
+  # IP address on shared network
+  ip: 10.1.1.11
+
+# Virtual machine 'node2'
+node2:
+  # IP address on shared network
+  ip: 10.1.1.12
