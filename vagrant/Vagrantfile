@@ -7,10 +7,11 @@
 #
 # Read nodes configuration
 #
-# Exit, if node configuration file not exists
+# Copy node configuration file from example configuration file, if not exists
 if not(File.exists?("../config/nodes.yml"))
-  puts "====> Please create cluster configuration file '../shared/nodes.yml'"
-  exit(1)
+  puts "====> Node configuration file not found ('../config/nodes.yml')."
+  puts "====> Copy it from example file ('../config/nodes.yml.smp')."
+  FileUtils.cp "../config/nodes.yml.smp", "../config/nodes.yml"
 end # if
 
 # Read node configuration file
