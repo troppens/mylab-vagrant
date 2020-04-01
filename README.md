@@ -44,3 +44,21 @@ VMs can be customized be settings the following properties in `mynodes`:
 |-----------|-------------|
 | [`vagrant`](vagrant) | Files to manage VMs using Vagrant |
 | [`config`](config)   | Configuration files used by all VMs |
+
+
+## Provisioning
+
+Virtual Machines will be provisioned with the plain operating system which is
+pinned in the [`Vagrantfile`](vagrant/Vagrantfile) and customized as specified
+in the node configuration file ([nodes.xml](config/nodes.xml.smp)).
+
+The further configuration of the operating system will be done via Ansible.
+The node `origin` is the Ansible control node for the whole `mylab`
+environment.
+
+
+### Node `Origin`
+
+The node `Origin` is the control station for the whole `mylab` environment.
+It keeps the Ansible playbooks and configuration to configure the operating
+system and the applications on all other nodes.
