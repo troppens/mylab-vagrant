@@ -8,12 +8,12 @@
 # Copy to nodes.yml and customize for your needs
 #
 
-# Virtual machine 'node1'
-node1:
+# Virtual machine 'origin'
+origin:
   # IP address on shared network
-  ip: 10.1.1.11
+  ip: 10.1.1.10
 
-# Virtual machine 'node2'
-node2:
+# Virtual machine 'node'
+node:
   # IP address on shared network
-  ip: 10.1.1.12
+  ip: 10.1.1.20
