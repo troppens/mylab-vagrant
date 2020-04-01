@@ -65,6 +65,10 @@ the directory [`config`](config).
 
 ### Node `Origin`
 
-The node `Origin` is the control station for the whole `mylab` environment.
+Node `Origin` is the control station for the whole `mylab` environment.
 It keeps the Ansible playbooks and configuration to configure the operating
 system and the applications on all other nodes.
+
+Node `Origin` will be customized by node provision script
+[`provision_origin.sh`](config/provision_origin.sh) which installs Ansible
+and Git and clones this project to `/root/mylab`.
