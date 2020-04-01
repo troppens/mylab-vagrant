@@ -52,9 +52,15 @@ Virtual Machines will be provisioned with the plain operating system which is
 pinned in the [`Vagrantfile`](vagrant/Vagrantfile) and customized as specified
 in the node configuration file ([nodes.xml](config/nodes.xml.smp)).
 
-The further configuration of the operating system will be done via Ansible.
+It is recommended to do further configuration of the operating system with
+Ansible.
 The node `origin` is the Ansible control node for the whole `mylab`
 environment.
+
+There is a node specific hook for configuration steps to be performed by
+Vagrant:
+Vagrant will execute the script (`provision_<nodename>.sh`), if it exists in
+the directory [`config`](config).
 
 
 ### Node `Origin`
