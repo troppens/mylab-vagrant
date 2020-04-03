@@ -19,9 +19,6 @@ end # if
 file = File.read("../config/nodes.yml")
 mynodes = YAML.load(file)
 
-# Extract all node names
-mynodenames = mynodes.keys
-
 #
 # Generate RSA key for root ssh between VMs
 #
@@ -69,21 +66,21 @@ Vagrant.configure("2") do |config|
       cat /root/.ssh/id_rsa.pub > /root/.ssh/authorized_keys
     """
 
-  # Iterate over all nodes nodenames
-  mynodenames.each do |node|
+  # Iterate over all nodes
+  mynodes.each do |node, node_params|
 
     # Define VM
-    config.vm.define node do |current_node|
+    config.vm.define node do |node_config|
 
       # Set hostname in guest OS
-      current_node.vm.hostname = node
+      node_config.vm.hostname = node
 
       # Set IP address on shared cluster network
-      current_node.vm.network "private_network", ip: mynodes[node]["ip"],
+      node_config.vm.network "private_network", ip: node_params["ip"],
         virtualbox__intnet: "mylab"
 
       # Virtualbox settings for current VM
-      current_node.vm.provider :virtualbox do |vb|
+      node_config.vm.provider :virtualbox do |vb|
         # Set VM name in VirtualBox
         vb.name = node
       end  # Loop |vb|
@@ -91,11 +88,12 @@ Vagrant.configure("2") do |config|
       # Run node specific provision script, if exists
       node_provision_script = "../config/provision_#{node}.sh"
       if File.exists?(node_provision_script)
-        current_node.vm.provision "Run node provision script (#{node_provision_script})",
+        node_config.vm.provision "Run node provision script (#{node_provision_script})",
           type: "shell", path: node_provision_script
       end  # if
 
-    end  # Loop |current_node|
-  end  # Loop |node|
+    end  # Loop |node_config|
+
+  end  # Loop |node, node_params|
 
 end  # Loop |config|
