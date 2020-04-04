@@ -118,7 +118,7 @@ Vagrant.configure("2") do |config|
       end  # Loop |vb|
 
       # Run node specific provision script, if exists
-      node_provision_script = "../config/provision_#{nodes[node]}.sh"
+      node_provision_script = "../config/provision_#{nodes[node]["name"]}.sh"
       if File.exists?(node_provision_script)
         node_config.vm.provision "Run node provision script (#{node_provision_script})",
           type: "shell", path: node_provision_script
