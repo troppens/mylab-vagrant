@@ -36,6 +36,7 @@ VMs can be customized be settings the following properties in `mynodes`:
 | Property | Description |
 |----------|-------------|
 | ip       | Static IP address an internal cluster network |
+| disks    | List of disks. See file [nodes.yml.smp](config/nodes.yml.smp) for supported properties |  
 
 
 ## Directories
@@ -44,6 +45,7 @@ VMs can be customized be settings the following properties in `mynodes`:
 |-----------|-------------|
 | [`vagrant`](vagrant) | Files to manage VMs using Vagrant |
 | [`config`](config)   | Configuration files used by all VMs |
+| [`disks`](disks)     | Disk images for VMs created by Vagrant |
 
 
 ## Provisioning

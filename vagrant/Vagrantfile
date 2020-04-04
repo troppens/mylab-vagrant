@@ -80,8 +80,41 @@ Vagrant.configure("2") do |config|
 
       # Virtualbox settings for current VM
       node_config.vm.provider :virtualbox do |vb|
+
         # Set VM name in VirtualBox
         vb.name = nodes[node]["name"]
+
+        # Create and attach disks, if specified in node configuration file
+        if nodes[node].key?("disks")
+          # Configure SATA controller
+          vb.customize ['storagectl', :id,
+            '--name', 'SATA',
+            '--add', 'sata',
+            '--hostiocache', 'off'
+          ]
+          # Iterate over all disks
+          (0..nodes[node]["disks"].count-1).each do |disk|
+            diskfile = "../disks/#{nodes[node]["name"]}_disk#{disk}.vdi"
+            # Create disk file, if not exist
+            unless File.exist?(diskfile)
+              vb.customize ['createmedium',
+                '--format', 'vdi',
+                '--variant', 'fixed',
+                '--filename', diskfile,
+                '--size', nodes[node]["disks"][disk]["size"] * 1024
+              ]
+            end  # unless
+            # Attach disk
+            vb.customize ['storageattach', :id,
+              '--storagectl', 'SATA',
+              '--port', disk,
+              '--device', 0,
+              '--type', 'hdd',
+              '--medium', diskfile
+            ]
+          end  # Loop |disk|
+        end  # if
+
       end  # Loop |vb|
 
       # Run node specific provision script, if exists

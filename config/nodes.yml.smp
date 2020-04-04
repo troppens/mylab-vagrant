@@ -15,3 +15,7 @@
 # Virtual machine 'node'
 - name: node
   ip: 10.1.1.20  # IP address on shared network
+  disks:         # Additional disks:
+  - size: 2   # Size in GB
+  - size: 2   # Size in GB
+  - size: 1   # Size in GB
