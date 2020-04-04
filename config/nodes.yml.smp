@@ -9,11 +9,9 @@
 #
 
 # Virtual machine 'origin'
-origin:
-  # IP address on shared network
-  ip: 10.1.1.10
+- name: origin
+  ip: 10.1.1.10  # IP address on shared network
 
 # Virtual machine 'node'
-node:
-  # IP address on shared network
-  ip: 10.1.1.20
+- name: node
+  ip: 10.1.1.20  # IP address on shared network

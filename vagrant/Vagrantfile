@@ -66,27 +66,26 @@ Vagrant.configure("2") do |config|
       cat /root/.ssh/id_rsa.pub > /root/.ssh/authorized_keys
     """
 
-  # Iterate over all nodes
-  mynodes.each do |node, node_params|
-
+  # Iterate over nunber of nodes
+  (0..mynodes.count-1).each do |node|
     # Define VM
-    config.vm.define node do |node_config|
+    config.vm.define mynodes[node]["name"] do |node_config|
 
       # Set hostname in guest OS
-      node_config.vm.hostname = node
+      node_config.vm.hostname = mynodes[node]["name"]
 
       # Set IP address on shared cluster network
-      node_config.vm.network "private_network", ip: node_params["ip"],
+      node_config.vm.network "private_network", ip: mynodes[node]["ip"],
         virtualbox__intnet: "mylab"
 
       # Virtualbox settings for current VM
       node_config.vm.provider :virtualbox do |vb|
         # Set VM name in VirtualBox
-        vb.name = node
+        vb.name = mynodes[node]["name"]
       end  # Loop |vb|
 
       # Run node specific provision script, if exists
-      node_provision_script = "../config/provision_#{node}.sh"
+      node_provision_script = "../config/provision_#{mynodes[node]}.sh"
       if File.exists?(node_provision_script)
         node_config.vm.provision "Run node provision script (#{node_provision_script})",
           type: "shell", path: node_provision_script
@@ -94,6 +93,6 @@ Vagrant.configure("2") do |config|
 
     end  # Loop |node_config|
 
-  end  # Loop |node, node_params|
+  end  # Loop |node|
 
 end  # Loop |config|
