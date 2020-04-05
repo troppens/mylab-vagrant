@@ -117,6 +117,11 @@ Vagrant.configure("2") do |config|
 
       end  # Loop |vb|
 
+      # For node origin only: Synchronize software directory to guest
+      if nodes[node]["name"] == "origin"
+        node_config.vm.synced_folder "../software/", "/software", type: "rsync"
+      end  # if
+
       # Run node specific provision script, if exists
       node_provision_script = "../config/provision_#{nodes[node]["name"]}.sh"
       if File.exists?(node_provision_script)

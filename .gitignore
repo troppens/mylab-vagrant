@@ -1,4 +1,5 @@
 .vagrant/
 config/id_rsa_root
 config/nodes.yml
+software/
 disks/

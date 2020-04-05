@@ -5,6 +5,7 @@ Virtual machines that I use on my laptop
 ## Capabilities
 
 * Synchronize local folder [`config`](config) to all guests
+* Synchronize local folder [`software`](software) to node `origin`
 * Enable root ssh between all guests by configuring same ssh key for root
 
 
@@ -45,6 +46,7 @@ VMs can be customized be settings the following properties in `mynodes`:
 |-----------|-------------|
 | [`vagrant`](vagrant) | Files to manage VMs using Vagrant |
 | [`config`](config)   | Configuration files used by all VMs |
+| [`software`](software)   | Software packages replicated to node `origin` |
 | [`disks`](disks)     | Disk images for VMs created by Vagrant |
 
 
