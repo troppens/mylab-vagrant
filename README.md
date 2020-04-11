@@ -1,5 +1,5 @@
-# mylab
-Virtual machines that I use on my laptop
+# mylab-vagrant
+Vagrant tooling to provision virtual machines on my laptop
 
 
 ## Capabilities
