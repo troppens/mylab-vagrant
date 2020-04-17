@@ -48,8 +48,15 @@ Vagrant.configure("2") do |config|
 
   # VirtualBox settings for all VMs
   config.vm.provider :virtualbox do |vb|
+
     # Add all cluster nodes to the same VirtualBox group
     vb.customize ["modifyvm", :id, "--groups", "/mylab"]
+
+   # DNS Not Working
+   # https://www.vagrantup.com/docs/virtualbox/common-issues.html#dns-not-working
+   # https://serverfault.com/questions/453185/vagrant-virtualbox-dns-10-0-2-3-not-working
+   vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+
   end  # Loop |vb|
 
   # Synchronize config directory to guests
