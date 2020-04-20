@@ -4,6 +4,58 @@
 #
 ###############################################################################
 
+###############################################################################
+#
+# Helper functions
+#
+###############################################################################
+
+# True, if storage controller is configured for VM
+def has_storagectl?(vm_name, controller_name)
+
+  # Get all vms
+  cmd = "VBoxManage list vms"
+  out = `#{cmd}`
+
+  # VMs are listed like this:
+  # "master" {5183a36e-3d27-4501-b166-39e6fb87e852}
+  pattern = "^\"#{vm_name}\" .*$"
+
+  # Check if VM is defined
+  if out.lines().any? { |line| /#{pattern}/ =~ line }
+    #
+    # VM is defined
+    #
+
+    # Get details of vm
+    cmd = "VBoxManage showvminfo #{vm_name}"
+    out = `#{cmd}`
+
+    # Storage controller are reported like this:
+    # "Storage Controller Name (1):            SATA"
+    pattern = "^Storage Controller Name.*#{controller_name}$"
+
+    # Return True, if output includes pattern
+    return out.lines().any? { |line| /#{pattern}/ =~ line }
+
+  else
+    #
+    # VM is not defined
+    #
+
+    # Undefined VMs do not have storage controller
+    return false
+
+  end  # if VM is defined
+
+end  # def has_storagectl
+
+###############################################################################
+#
+# Main program
+#
+###############################################################################
+
 #
 # Read nodes configuration
 #
@@ -11,7 +63,8 @@
 # Copy node configuration file from example configuration file, if not exists
 if not(File.exists?("../config/nodes.yml"))
   puts "====> Node configuration file not found ('../config/nodes.yml')."
-  puts "====> Copy it from example file ('../config/nodes.yml.smp')..."
+  puts "====> Copy it from example file ('../config/nodes.yml
+  .smp')..."
   FileUtils.cp "../config/nodes.yml.smp", "../config/nodes.yml"
 end # if
 
@@ -93,12 +146,14 @@ Vagrant.configure("2") do |config|
 
         # Create and attach disks, if specified in node configuration file
         if nodes[node].key?("disks")
-          # Configure SATA controller
-          vb.customize ['storagectl', :id,
-            '--name', 'SATA',
-            '--add', 'sata',
-            '--hostiocache', 'off'
-          ]
+          # Configure SATA controller, unless it is already configured
+          unless has_storagectl?(nodes[node]["name"], "SATA")
+            vb.customize ['storagectl', :id,
+              '--name', 'SATA',
+              '--add', 'sata',
+              '--hostiocache', 'off'
+            ]
+          end  # unless has_storagectl?
           # Iterate over all disks
           (0..nodes[node]["disks"].count-1).each do |disk|
             diskfile = "../disks/#{nodes[node]["name"]}_disk#{disk}.vdi"
